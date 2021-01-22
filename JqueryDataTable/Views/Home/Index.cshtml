@@ -1,0 +1,57 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+@section styles {
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" />
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Items</h3>
+            </div>
+            <div class="=panel-body">
+                <table id="ItemsTable" class="table table-striped table-bordered table-hover embed-responsive" width="100%">
+                    <thead class="thin-border-bottom">
+                        <tr>
+                            <th>Item Id</th>
+                            <th>Nome</th>
+                            <th>Descrição</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section scripts {
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<script>
+    (function ($) {
+        var generateCustomerTable = $("#ItemsTable")
+            .dataTable({
+                "processing": true,
+                "serverSide": true,
+                "ajax": {
+                    "url": "/api/items",
+                    "method": "POST"
+                },
+                "columns": [
+                    { "data": "itemId" },
+                    { "data": "nome" },
+                    { "data": "descricao" }
+                ],
+                "ordering": true,
+                "paging": true,
+                "pagingType": "full_numbers",
+                "pageLength": 3
+            });
+    })(jQuery);
+</script>
+}
